@@ -17,13 +17,13 @@ FF14 ACT Cactbot 技能CD监控悬浮窗，基于 OverlayPlugin API 实现。
 在 ACT → OverlayPlugin → 新建悬浮窗 → URL 填入：
 
 ```
-https://你的用户名.github.io/技能CD监控/
+https://你的用户名.github.io/仓库名/
 ```
 
 或开启开发日志模式：
 
 ```
-https://你的用户名.github.io/技能CD监控/?dev=1
+https://你的用户名.github.io/仓库名/?dev=1
 ```
 
 ### 2. 本地文件加载
