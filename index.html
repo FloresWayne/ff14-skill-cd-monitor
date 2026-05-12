@@ -10,13 +10,58 @@
       background: transparent;
       overflow: hidden;
     }
+
+    /* 日志面板 - 默认隐藏 */
     #log {
-      position: fixed; top: 4px; left: 4px;
-      font-size: 11px; line-height: 1.4;
-      color: rgba(255,255,255,0.85); font-family: "Microsoft YaHei", monospace;
-      pointer-events: none; white-space: pre-wrap;
-      max-width: 480px; max-height: 200px; overflow: hidden;
-      text-shadow: 0 0 3px #000, 0 0 2px #000;
+      display: none;
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      width: 420px;
+      max-height: 320px;
+      padding: 12px 14px;
+      font-size: 13px;
+      line-height: 1.6;
+      font-family: "Microsoft YaHei", "PingFang SC", monospace;
+      color: rgba(255, 255, 255, 0.9);
+      background: rgba(16, 20, 28, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      overflow-y: auto;
+      pointer-events: auto;
+    }
+
+    /* dev=1 时显示 */
+    body.dev-mode #log {
+      display: block;
+    }
+
+    /* 单条日志 */
+    #log .log-line {
+      padding: 2px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    #log .log-line:last-child {
+      border-bottom: none;
+    }
+
+    /* 日志级别颜色 */
+    #log .log-info  { color: #a8d5ff; }
+    #log .log-dev   { color: #b8f2b8; }
+    #log .log-warn  { color: #ffd6a8; }
+
+    /* 自定义滚动条 */
+    #log::-webkit-scrollbar {
+      width: 5px;
+    }
+    #log::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    #log::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
     }
   </style>
 </head>

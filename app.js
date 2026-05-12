@@ -114,6 +114,11 @@ class SkillCdMonitor {
       }
 
       init() {
+        // dev=1 时显示日志面板
+        if (IS_DEV) {
+          document.body.classList.add('dev-mode');
+        }
+
         addOverlayListener('LogLine', (e) => this.handleLogLine(e));
         addOverlayListener('ChangePrimaryPlayer', (e) => {
           this.playerName = e.charName || '';
@@ -282,27 +287,33 @@ class SkillCdMonitor {
       // warn: 始终输出（警告）
 
       info(msg) {
-        this._log('[INFO] ' + msg);
+        this._log('info', msg);
       }
 
       dev(msg) {
         if (IS_DEV) {
-          this._log('[DEV] ' + msg);
+          this._log('dev', msg);
         }
       }
 
       warn(msg) {
-        this._log('[WARN] ' + msg);
+        this._log('warn', msg);
         console.warn('[SkillCD] ' + msg);
       }
 
-      _log(msg) {
+      _log(level, msg) {
         const time = new Date().toLocaleTimeString('zh-CN', { hour12: false });
         const line = `[${time}] ${msg}`;
         console.log(line);
+
         // 仅在 dev=1 时显示在页面上
         if (IS_DEV && this.logEl) {
-          this.logEl.textContent = line + '\n' + this.logEl.textContent;
+          const el = document.createElement('div');
+          el.className = 'log-line log-' + level;
+          el.textContent = line;
+          this.logEl.appendChild(el);
+          // 自动滚动到底部，显示最新日志
+          this.logEl.scrollTop = this.logEl.scrollHeight;
         }
       }
     }
