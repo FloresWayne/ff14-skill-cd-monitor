@@ -39,6 +39,26 @@
       display: block;
     }
 
+    /* 顶部切换栏 - 始终在 dev=1 时显示 */
+    #dev-toolbar {
+      display: none;
+      position: fixed;
+      top: 8px;
+      left: 440px;
+      z-index: 100;
+      gap: 8px;
+    }
+    body.dev-mode #dev-toolbar { display: flex; }
+    #dev-toolbar button {
+      padding: 4px 12px;
+      background: rgba(60, 70, 90, 0.85);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px;
+      color: #fff;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
     /* 单条日志 */
     #log .log-line {
       padding: 2px 0;
@@ -249,10 +269,14 @@
 <body>
   <div id="log"></div>
 
+  <!-- dev=1 时的顶部工具栏 -->
+  <div id="dev-toolbar">
+    <button id="config-toggle-log">📋 查看日志</button>
+  </div>
+
   <!-- 配置面板 (仅 dev=1 时显示) -->
   <div id="config-panel">
     <div class="config-header">
-      <button id="config-toggle-log">📋 查看日志</button>
       <span>点击分类标题展开/折叠 | 勾选=启用 | 取消勾选=禁用</span>
     </div>
     <div id="config-content"></div>
