@@ -12,27 +12,13 @@ FF14 ACT Cactbot 技能CD监控悬浮窗，基于 OverlayPlugin API 实现。
 
 ## 使用方式
 
-### 1. 通过 GitHub Pages 加载（推荐）
-
 在 ACT → OverlayPlugin → 新建悬浮窗 → URL 填入：
 
-```
-https://你的用户名.github.io/仓库名/
-```
+`https://github.com/FloresWayne/ff14-skill-cd-monitor/`
 
 或开启开发日志模式：
 
-```
-https://你的用户名.github.io/仓库名/?dev=1
-```
-
-### 2. 本地文件加载
-
-下载 `skill-cd-monitor.html`，在 OverlayPlugin 中 URL 填入：
-
-```
-file:///C:/.../skill-cd-monitor.html
-```
+`https://github.com/FloresWayne/ff14-skill-cd-monitor/?dev=1`
 
 ## 自定义技能数据
 

@@ -353,3 +353,46 @@ class SkillCdMonitor {
     // 启动
     const monitor = new SkillCdMonitor();
     monitor.init();
+
+    // ==============================================================
+    // 悬浮窗 resize 手柄拖拽逻辑
+    // --------------------------------------------------------------
+    // 注意：window.resizeBy() 在部分 OverlayPlugin 版本中可能无效，
+    // 此时请通过 ACT → OverlayPlugin → 右键悬浮窗 → 设置 手动调整大小
+    // ==============================================================
+    (function setupResizeHandle() {
+      const handle = document.getElementById('resize-handle');
+      if (!handle) return;
+
+      let isResizing = false;
+      let startX = 0;
+      let startY = 0;
+      let startWidth = 0;
+      let startHeight = 0;
+
+      handle.addEventListener('mousedown', (e) => {
+        isResizing = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        startWidth = window.outerWidth;
+        startHeight = window.outerHeight;
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isResizing) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        const newWidth = Math.max(200, startWidth + dx);
+        const newHeight = Math.max(100, startHeight + dy);
+        try {
+          window.resizeTo(newWidth, newHeight);
+        } catch (err) {
+          // CEF 环境中 resizeTo 可能受限，忽略错误
+        }
+      });
+
+      document.addEventListener('mouseup', () => {
+        isResizing = false;
+      });
+    })();
