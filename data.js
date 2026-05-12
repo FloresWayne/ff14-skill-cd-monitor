@@ -43,7 +43,7 @@ const SKILL_DATABASE = {
       ],
     },
     {
-      enabled: true,
+      enabled: false,
       ids: ["1D89"],
       name: "即刻咏唱",
       type: "cd",
@@ -87,7 +87,7 @@ const SKILL_DATABASE = {
     // 钐镰客
     rpr: [
       {
-        enabled: true,
+        enabled: false,
         ids: ["5F3A"],
         name: "死亡之影",
         type: "dot",
