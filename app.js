@@ -125,13 +125,8 @@ class SkillCdMonitor {
           this.playerName = e.charName || '';
           this.info(`玩家: ${this.playerName}`);
         });
-        addOverlayListener('onInCombatChangedEvent', (e) => {
-          // 当游戏内脱离战斗时（怪全死了），清除所有计时器
-          if (e.detail && e.detail.inGameCombat === false) {
-            this.info('检测到脱离战斗，清除所有计时器');
-            this.clearAllTimers();
-          }
-        });
+        // 注意：不监听 onInCombatChangedEvent，因为打木桩时
+        // inGameCombat 始终为 false，会导致计时器被立即清除。
         this.info('技能CD监控已启动');
         this.info(`已加载 ${this.skillCount} 个技能配置`);
         if (IS_DEV) {
