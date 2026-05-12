@@ -123,7 +123,7 @@ class SkillCdMonitor {
         addOverlayListener('LogLine', (e) => this.handleLogLine(e));
         addOverlayListener('ChangePrimaryPlayer', (e) => {
           this.playerName = e.charName || '';
-          this.info(`玩家: ${this.playerName}`);
+          // this.info(`玩家: ${this.playerName}`);
         });
         // 注意：不监听 onInCombatChangedEvent，因为打木桩时
         // inGameCombat 始终为 false，会导致计时器被立即清除。
