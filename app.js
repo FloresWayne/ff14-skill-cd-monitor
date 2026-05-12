@@ -74,38 +74,6 @@
 // 地址栏 ?dev=1 开启详细日志模式
     const IS_DEV = new URLSearchParams(location.search).get('dev') === '1';
 
-    // ==============================================================
-    // 缩放系统
-    // --------------------------------------------------------------
-    // 支持 URL 参数: ?scale=1.5
-    // 支持快捷键: Alt + 滚轮上下 实时调整缩放
-    // 范围: 0.5x ~ 3.0x
-    // ==============================================================
-    const urlParams = new URLSearchParams(location.search);
-    let currentScale = parseFloat(urlParams.get('scale')) || 1.0;
-    currentScale = Math.max(0.5, Math.min(3.0, currentScale));
-
-    function applyScale() {
-      document.body.style.zoom = currentScale.toFixed(2);
-    }
-    applyScale();
-
-    // Alt + 滚轮调整缩放
-    let scaleDebounce = null;
-    document.addEventListener('wheel', (e) => {
-      if (e.altKey) {
-        e.preventDefault();
-        const step = e.deltaY > 0 ? -0.05 : 0.05;
-        currentScale = Math.max(0.5, Math.min(3.0, currentScale + step));
-        applyScale();
-        // 防抖输出当前缩放比例到日志
-        if (scaleDebounce) clearTimeout(scaleDebounce);
-        scaleDebounce = setTimeout(() => {
-          console.log(`[SkillCD] 缩放比例: ${currentScale.toFixed(2)}x`);
-        }, 200);
-      }
-    }, { passive: false });
-
 class SkillCdMonitor {
       constructor() {
         // 构建技能ID -> 技能配置 的映射表
@@ -354,45 +322,4 @@ class SkillCdMonitor {
     const monitor = new SkillCdMonitor();
     monitor.init();
 
-    // ==============================================================
-    // 悬浮窗 resize 手柄拖拽逻辑
-    // --------------------------------------------------------------
-    // 注意：window.resizeBy() 在部分 OverlayPlugin 版本中可能无效，
-    // 此时请通过 ACT → OverlayPlugin → 右键悬浮窗 → 设置 手动调整大小
-    // ==============================================================
-    (function setupResizeHandle() {
-      const handle = document.getElementById('resize-handle');
-      if (!handle) return;
 
-      let isResizing = false;
-      let startX = 0;
-      let startY = 0;
-      let startWidth = 0;
-      let startHeight = 0;
-
-      handle.addEventListener('mousedown', (e) => {
-        isResizing = true;
-        startX = e.clientX;
-        startY = e.clientY;
-        startWidth = window.outerWidth;
-        startHeight = window.outerHeight;
-        e.preventDefault();
-      });
-
-      document.addEventListener('mousemove', (e) => {
-        if (!isResizing) return;
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-        const newWidth = Math.max(200, startWidth + dx);
-        const newHeight = Math.max(100, startHeight + dy);
-        try {
-          window.resizeTo(newWidth, newHeight);
-        } catch (err) {
-          // CEF 环境中 resizeTo 可能受限，忽略错误
-        }
-      });
-
-      document.addEventListener('mouseup', () => {
-        isResizing = false;
-      });
-    })();

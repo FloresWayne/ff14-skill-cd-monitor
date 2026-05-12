@@ -7,7 +7,8 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
       width: 100%; height: 100%;
-      background: transparent;
+      min-height: 100vh;
+      background: rgba(0, 0, 0, 0.03);
       overflow: hidden;
     }
 
@@ -64,52 +65,10 @@
       border-radius: 3px;
     }
 
-    /* 调整大小手柄 */
-    #resize-handle {
-      position: fixed;
-      right: 0;
-      bottom: 0;
-      width: 20px;
-      height: 20px;
-      cursor: nwse-resize;
-      z-index: 9999;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-    #resize-handle::before,
-    #resize-handle::after {
-      content: '';
-      position: absolute;
-      background: rgba(255, 255, 255, 0.5);
-      border-radius: 1px;
-    }
-    #resize-handle::before {
-      right: 4px;
-      bottom: 4px;
-      width: 10px;
-      height: 2px;
-      transform: rotate(-45deg);
-      transform-origin: right bottom;
-    }
-    #resize-handle::after {
-      right: 4px;
-      bottom: 8px;
-      width: 6px;
-      height: 2px;
-      transform: rotate(-45deg);
-      transform-origin: right bottom;
-    }
-    /* 未锁定时显示手柄 */
-    body:hover #resize-handle {
-      opacity: 1;
-    }
   </style>
 </head>
 <body>
   <div id="log"></div>
-
-  <!-- 调整大小手柄 -->
-  <div id="resize-handle" title="按住拖拽调整悬浮窗大小"></div>
 
   <!-- ============================================================ -->
   <!-- 1. OverlayPlugin API 内嵌通信层                                 -->
