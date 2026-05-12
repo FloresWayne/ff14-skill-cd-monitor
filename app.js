@@ -298,17 +298,16 @@ class SkillCdMonitor {
       }
 
       _log(level, msg) {
+        if (!IS_DEV) return;
         const time = new Date().toLocaleTimeString('zh-CN', { hour12: false });
         const line = `[${time}] ${msg}`;
         console.log(line);
 
-        // 仅在 dev=1 时显示在页面上
-        if (IS_DEV && this.logEl) {
+        if (this.logEl) {
           const el = document.createElement('div');
           el.className = 'log-line log-' + level;
           el.textContent = line;
           this.logEl.appendChild(el);
-          // 自动滚动到底部，显示最新日志
           this.logEl.scrollTop = this.logEl.scrollHeight;
         }
       }
