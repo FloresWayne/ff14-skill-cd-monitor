@@ -74,6 +74,38 @@
 // 地址栏 ?dev=1 开启详细日志模式
     const IS_DEV = new URLSearchParams(location.search).get('dev') === '1';
 
+    // ==============================================================
+    // 缩放系统
+    // --------------------------------------------------------------
+    // 支持 URL 参数: ?scale=1.5
+    // 支持快捷键: Alt + 滚轮上下 实时调整缩放
+    // 范围: 0.5x ~ 3.0x
+    // ==============================================================
+    const urlParams = new URLSearchParams(location.search);
+    let currentScale = parseFloat(urlParams.get('scale')) || 1.0;
+    currentScale = Math.max(0.5, Math.min(3.0, currentScale));
+
+    function applyScale() {
+      document.body.style.zoom = currentScale.toFixed(2);
+    }
+    applyScale();
+
+    // Alt + 滚轮调整缩放
+    let scaleDebounce = null;
+    document.addEventListener('wheel', (e) => {
+      if (e.altKey) {
+        e.preventDefault();
+        const step = e.deltaY > 0 ? -0.05 : 0.05;
+        currentScale = Math.max(0.5, Math.min(3.0, currentScale + step));
+        applyScale();
+        // 防抖输出当前缩放比例到日志
+        if (scaleDebounce) clearTimeout(scaleDebounce);
+        scaleDebounce = setTimeout(() => {
+          console.log(`[SkillCD] 缩放比例: ${currentScale.toFixed(2)}x`);
+        }, 200);
+      }
+    }, { passive: false });
+
 class SkillCdMonitor {
       constructor() {
         // 构建技能ID -> 技能配置 的映射表
