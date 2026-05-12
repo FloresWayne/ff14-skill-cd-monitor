@@ -65,10 +65,212 @@
       border-radius: 3px;
     }
 
+    /* 配置面板 */
+    #config-panel {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      overflow-y: auto;
+      padding: 10px 10px 60px 10px;
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      font-size: 13px;
+      color: #eee;
+      background: rgba(16, 20, 28, 0.96);
+    }
+    body.dev-mode #config-panel { display: block; }
+    body.dev-mode #log { display: none; }
+    body.dev-mode.show-log #log { display: block; }
+    body.dev-mode.show-log #config-panel { display: none; }
+
+    .config-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .config-header button {
+      padding: 4px 12px;
+      background: rgba(60, 70, 90, 0.8);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px;
+      color: #fff;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .config-header span { font-size: 12px; color: #888; }
+
+    .config-role { margin-bottom: 6px; }
+    .config-role-title {
+      padding: 8px 12px;
+      background: rgba(40, 50, 70, 0.85);
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+      user-select: none;
+    }
+    .config-role-title:hover { background: rgba(50, 65, 90, 0.9); }
+    .config-role-content { display: none; padding: 4px 0 4px 12px; }
+    .config-role.expanded .config-role-content { display: block; }
+
+    .config-job { margin-bottom: 4px; }
+    .config-job-title {
+      padding: 6px 10px;
+      background: rgba(50, 60, 80, 0.6);
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 13px;
+      user-select: none;
+    }
+    .config-job-title:hover { background: rgba(60, 75, 100, 0.7); }
+    .config-job-content { display: none; padding: 2px 0; }
+    .config-job.expanded .config-job-content { display: block; }
+
+    .config-skill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      min-height: 28px;
+    }
+    .config-skill:hover { background: rgba(255,255,255,0.03); }
+    .config-skill input[type="checkbox"] { width: 14px; height: 14px; flex-shrink: 0; }
+    .config-skill input[type="number"] {
+      width: 48px;
+      background: rgba(30, 35, 45, 0.8);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 3px;
+      color: #fff;
+      padding: 2px 4px;
+      font-size: 12px;
+    }
+    .config-skill input[type="text"] {
+      background: rgba(30, 35, 45, 0.8);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 3px;
+      color: #fff;
+      padding: 2px 4px;
+      font-size: 12px;
+    }
+    .config-skill .skill-id    { width: 110px; font-size: 11px; color: #999; flex-shrink: 0; }
+    .config-skill .skill-name  { width: 130px; font-size: 12px; flex-shrink: 0; }
+    .config-skill .skill-type  { width: 32px; font-size: 11px; color: #aaa; text-align: center; flex-shrink: 0; }
+    .config-skill .skill-dur-label { font-size: 11px; color: #888; margin-left: 4px; flex-shrink: 0; }
+    .config-skill .skill-adv-label { font-size: 11px; color: #888; margin-left: 4px; flex-shrink: 0; }
+    .config-skill .reminder-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .config-skill .reminder-at {
+      width: 42px;
+      font-size: 11px;
+      color: #aaa;
+      text-align: right;
+    }
+    .config-skill .reminder-at input { width: 40px; text-align: right; }
+    .config-skill .reminder-tts input { width: 100px; }
+
+    .config-export-btn {
+      position: fixed;
+      bottom: 12px;
+      right: 12px;
+      padding: 8px 20px;
+      background: rgba(50, 130, 60, 0.9);
+      border: 1px solid rgba(80, 180, 90, 0.4);
+      border-radius: 6px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 101;
+    }
+    .config-export-btn:hover { background: rgba(60, 150, 70, 0.95); }
+
+    .config-export-modal {
+      display: none;
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 85%; height: 75%;
+      background: rgba(18, 22, 32, 0.98);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 14px;
+      z-index: 200;
+      flex-direction: column;
+    }
+    .config-export-modal.show { display: flex; }
+    .config-export-modal .modal-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-shrink: 0;
+    }
+    .config-export-modal .modal-bar span { font-size: 13px; color: #ccc; }
+    .config-export-modal .modal-bar button {
+      padding: 4px 12px;
+      background: rgba(60, 70, 90, 0.8);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px;
+      color: #fff;
+      font-size: 12px;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+    .config-export-modal textarea {
+      flex: 1;
+      width: 100%;
+      background: rgba(8, 12, 20, 0.95);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+      color: #b8f2b8;
+      font-family: "Consolas", "Courier New", monospace;
+      font-size: 12px;
+      padding: 10px;
+      resize: none;
+      line-height: 1.5;
+    }
+    .config-export-modal .modal-hint {
+      margin-top: 8px;
+      font-size: 11px;
+      color: #888;
+      text-align: center;
+      flex-shrink: 0;
+    }
   </style>
 </head>
 <body>
   <div id="log"></div>
+
+  <!-- 配置面板 (仅 dev=1 时显示) -->
+  <div id="config-panel">
+    <div class="config-header">
+      <button id="config-toggle-log">📋 查看日志</button>
+      <span>点击分类标题展开/折叠 | 勾选=启用 | 取消勾选=禁用</span>
+    </div>
+    <div id="config-content"></div>
+    <button class="config-export-btn" id="config-export">📤 导出 data.js</button>
+  </div>
+
+  <!-- 导出弹窗 -->
+  <div id="config-export-modal" class="config-export-modal">
+    <div class="modal-bar">
+      <span>复制下方代码，覆盖到仓库的 data.js 文件中</span>
+      <div>
+        <button id="config-copy-btn">📋 复制到剪贴板</button>
+        <button id="config-close-btn">✕ 关闭</button>
+      </div>
+    </div>
+    <textarea id="config-export-text" readonly></textarea>
+    <div class="modal-hint">复制后粘贴到 data.js → git commit → git push → 刷新 OverlayPlugin 悬浮窗</div>
+  </div>
 
   <!-- ============================================================ -->
   <!-- 1. OverlayPlugin API 内嵌通信层                                 -->

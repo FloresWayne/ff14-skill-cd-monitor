@@ -322,4 +322,337 @@ class SkillCdMonitor {
     const monitor = new SkillCdMonitor();
     monitor.init();
 
+    // ==============================================================
+    // 配置面板 (仅 dev=1 时启用)
+    // --------------------------------------------------------------
+    // 提供按职业分类的技能配置界面，支持：
+    // - 启用/禁用技能
+    // - 修改 duration、advance
+    // - 修改 reminders 的 at 和 tts
+    // - 导出完整 data.js 代码
+    // ==============================================================
+
+    const ROLE_NAMES = {
+      common: '📦 共通',
+      tank: '🛡️ 防护',
+      melee: '⚔️ 近战',
+      ranged: '🏹 远程物理',
+      caster: '🔮 远程魔法',
+      healer: '💚 治疗',
+    };
+
+    const JOB_NAMES = {
+      drk: '暗黑骑士', gnb: '绝枪战士', pld: '骑士', war: '战士',
+      drg: '龙骑士', nin: '忍者', mnk: '武僧', sam: '武士', rpr: '钐镰客',
+      dnc: '舞者', brd: '吟游诗人', mch: '机工士',
+      blm: '黑魔法师', rdm: '赤魔法师', smn: '召唤师',
+      whm: '白魔法师', sge: '贤者', sch: '学者', ast: '占星术士',
+      common: '通用',
+    };
+
+    class SkillConfigPanel {
+      constructor() {
+        this.data = this._cloneData();
+        this.contentEl = document.getElementById('config-content');
+        this.modalEl = document.getElementById('config-export-modal');
+        this.exportTextEl = document.getElementById('config-export-text');
+        this.toggleLogBtn = document.getElementById('config-toggle-log');
+        this.exportBtn = document.getElementById('config-export');
+        this.copyBtn = document.getElementById('config-copy-btn');
+        this.closeBtn = document.getElementById('config-close-btn');
+        this._render();
+        this._bindEvents();
+      }
+
+      _cloneData() {
+        const cloned = {};
+        cloned.common = SKILL_DATABASE.common.map((s, i) => ({
+          ...JSON.parse(JSON.stringify(s)),
+          _path: `common.${i}`,
+          _enabled: true,
+        }));
+        for (const role of ['tank', 'melee', 'ranged', 'caster', 'healer']) {
+          cloned[role] = {};
+          for (const [job, skills] of Object.entries(SKILL_DATABASE[role])) {
+            cloned[role][job] = skills.map((s, i) => ({
+              ...JSON.parse(JSON.stringify(s)),
+              _path: `${role}.${job}.${i}`,
+              _enabled: true,
+            }));
+          }
+        }
+        return cloned;
+      }
+
+      _render() {
+        this._renderRole('common', this.data.common, this.contentEl);
+        for (const role of ['tank', 'melee', 'ranged', 'caster', 'healer']) {
+          this._renderRole(role, this.data[role], this.contentEl);
+        }
+      }
+
+      _renderRole(roleKey, roleData, parentEl) {
+        const roleDiv = document.createElement('div');
+        roleDiv.className = 'config-role';
+        roleDiv.dataset.role = roleKey;
+
+        const title = document.createElement('div');
+        title.className = 'config-role-title';
+        title.textContent = ROLE_NAMES[roleKey] || roleKey;
+        title.addEventListener('click', () => roleDiv.classList.toggle('expanded'));
+        roleDiv.appendChild(title);
+
+        const content = document.createElement('div');
+        content.className = 'config-role-content';
+
+        if (roleKey === 'common') {
+          for (let i = 0; i < roleData.length; i++) {
+            this._renderSkill(roleData[i], content);
+          }
+        } else {
+          for (const [jobKey, jobSkills] of Object.entries(roleData)) {
+            this._renderJob(jobKey, jobSkills, content);
+          }
+        }
+
+        roleDiv.appendChild(content);
+        parentEl.appendChild(roleDiv);
+      }
+
+      _renderJob(jobKey, jobSkills, parentEl) {
+        const jobDiv = document.createElement('div');
+        jobDiv.className = 'config-job';
+        jobDiv.dataset.job = jobKey;
+
+        const title = document.createElement('div');
+        title.className = 'config-job-title';
+        title.textContent = JOB_NAMES[jobKey] || jobKey;
+        title.addEventListener('click', (e) => {
+          e.stopPropagation();
+          jobDiv.classList.toggle('expanded');
+        });
+        jobDiv.appendChild(title);
+
+        const content = document.createElement('div');
+        content.className = 'config-job-content';
+
+        for (const skill of jobSkills) {
+          this._renderSkill(skill, content);
+        }
+
+        jobDiv.appendChild(content);
+        parentEl.appendChild(jobDiv);
+      }
+
+      _renderSkill(skill, parentEl) {
+        const row = document.createElement('div');
+        row.className = 'config-skill';
+        row.dataset.path = skill._path;
+
+        // 启用开关
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.checked = skill._enabled;
+        cb.title = '启用/禁用';
+        cb.addEventListener('change', () => { skill._enabled = cb.checked; });
+        row.appendChild(cb);
+
+        // ID
+        const idSpan = document.createElement('span');
+        idSpan.className = 'skill-id';
+        idSpan.textContent = skill.ids.join(', ');
+        idSpan.title = '技能ID (只读)';
+        row.appendChild(idSpan);
+
+        // 名称
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'skill-name';
+        nameSpan.textContent = skill.name;
+        nameSpan.title = '技能名称 (只读)';
+        row.appendChild(nameSpan);
+
+        // 类型
+        const typeSpan = document.createElement('span');
+        typeSpan.className = 'skill-type';
+        typeSpan.textContent = skill.type;
+        typeSpan.title = '类型: cd=冷却提醒, dot=持续刷新';
+        row.appendChild(typeSpan);
+
+        // CD/持续时间
+        const durLabel = document.createElement('span');
+        durLabel.className = 'skill-dur-label';
+        durLabel.textContent = 'CD:';
+        row.appendChild(durLabel);
+
+        const durInput = document.createElement('input');
+        durInput.type = 'number';
+        durInput.value = typeof skill.duration === 'number' ? skill.duration : '';
+        durInput.title = 'CD/持续时间(秒)，空=不自动计算';
+        durInput.addEventListener('change', () => {
+          const v = parseFloat(durInput.value);
+          skill.duration = isNaN(v) ? undefined : v;
+        });
+        row.appendChild(durInput);
+
+        // 提前播报秒数
+        const advLabel = document.createElement('span');
+        advLabel.className = 'skill-adv-label';
+        advLabel.textContent = '提前:';
+        row.appendChild(advLabel);
+
+        const advInput = document.createElement('input');
+        advInput.type = 'number';
+        advInput.value = typeof skill.advance === 'number' ? skill.advance : '';
+        advInput.title = '提前播报秒数，空=使用默认值(2秒)';
+        advInput.addEventListener('change', () => {
+          const v = parseFloat(advInput.value);
+          skill.advance = isNaN(v) ? undefined : v;
+        });
+        row.appendChild(advInput);
+
+        // Reminders
+        for (let ri = 0; ri < skill.reminders.length; ri++) {
+          const r = skill.reminders[ri];
+          const rRow = document.createElement('div');
+          rRow.className = 'reminder-row';
+
+          const atWrap = document.createElement('div');
+          atWrap.className = 'reminder-at';
+          const atInput = document.createElement('input');
+          atInput.type = 'number';
+          atInput.value = typeof r.at === 'number' ? r.at : '';
+          atInput.title = '固定秒数(空=自动: duration - advance)';
+          atInput.addEventListener('change', () => {
+            const v = parseFloat(atInput.value);
+            if (isNaN(v)) delete r.at;
+            else r.at = v;
+          });
+          atWrap.appendChild(atInput);
+          rRow.appendChild(atWrap);
+
+          const ttsWrap = document.createElement('div');
+          ttsWrap.className = 'reminder-tts';
+          const ttsInput = document.createElement('input');
+          ttsInput.type = 'text';
+          ttsInput.value = r.tts;
+          ttsInput.title = 'TTS播报内容';
+          ttsInput.addEventListener('change', () => { r.tts = ttsInput.value; });
+          ttsWrap.appendChild(ttsInput);
+          rRow.appendChild(ttsWrap);
+
+          row.appendChild(rRow);
+        }
+
+        parentEl.appendChild(row);
+      }
+
+      _bindEvents() {
+        this.toggleLogBtn.addEventListener('click', () => {
+          document.body.classList.toggle('show-log');
+          this.toggleLogBtn.textContent = document.body.classList.contains('show-log')
+            ? '⚙️ 打开配置'
+            : '📋 查看日志';
+        });
+
+        this.exportBtn.addEventListener('click', () => {
+          const code = this._generateDataJs();
+          this.exportTextEl.value = code;
+          this.modalEl.classList.add('show');
+        });
+
+        this.copyBtn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(this.exportTextEl.value);
+            this.copyBtn.textContent = '✓ 已复制';
+          } catch (e) {
+            this.exportTextEl.select();
+            document.execCommand('copy');
+            this.copyBtn.textContent = '✓ 已复制';
+          }
+          setTimeout(() => { this.copyBtn.textContent = '📋 复制到剪贴板'; }, 1500);
+        });
+
+        this.closeBtn.addEventListener('click', () => {
+          this.modalEl.classList.remove('show');
+        });
+      }
+
+      _generateDataJs() {
+        const lines = [];
+        lines.push('// ==============================================================');
+        lines.push('// 技能CD监控数据库 - 按职业分组 (由配置面板导出)');
+        lines.push('// ==============================================================');
+        lines.push('const DEFAULT_ADVANCE = 2;');
+        lines.push('');
+        lines.push('const SKILL_DATABASE = {');
+
+        // common
+        const commonSkills = this.data.common.filter(s => s._enabled);
+        if (commonSkills.length > 0) {
+          lines.push('  // 共通技能');
+          lines.push('  common: [');
+          for (const s of commonSkills) {
+            lines.push(...this._skillToLines(s, '    '));
+          }
+          lines.push('  ],');
+        }
+
+        // roles
+        for (const role of ['tank', 'melee', 'ranged', 'caster', 'healer']) {
+          const roleData = this.data[role];
+          const jobs = Object.keys(roleData);
+          const hasEnabled = jobs.some(job => roleData[job].some(s => s._enabled));
+          if (!hasEnabled) continue;
+
+          lines.push('');
+          lines.push(`  // ${ROLE_NAMES[role].replace(/./g, '')} ${role}`);
+          lines.push(`  ${role}: {`);
+          for (const job of jobs) {
+            const jobSkills = roleData[job].filter(s => s._enabled);
+            if (jobSkills.length === 0) continue;
+            lines.push(`    // ${JOB_NAMES[job] || job}`);
+            lines.push(`    ${job}: [`);
+            for (const s of jobSkills) {
+              lines.push(...this._skillToLines(s, '      '));
+            }
+            lines.push('    ],');
+          }
+          lines.push('  },');
+        }
+
+        lines.push('};');
+        return lines.join('\n');
+      }
+
+      _skillToLines(skill, indent) {
+        const lines = [];
+        lines.push(`${indent}{`);
+        lines.push(`${indent}  ids: [${skill.ids.map(id => `"${id}"`).join(', ')}],`);
+        lines.push(`${indent}  name: "${skill.name}",`);
+        lines.push(`${indent}  type: "${skill.type}",`);
+        if (typeof skill.duration === 'number') {
+          lines.push(`${indent}  duration: ${skill.duration},`);
+        }
+        if (typeof skill.advance === 'number') {
+          lines.push(`${indent}  advance: ${skill.advance},`);
+        }
+        lines.push(`${indent}  reminders: [`);
+        for (const r of skill.reminders) {
+          if (typeof r.at === 'number') {
+            lines.push(`${indent}    { at: ${r.at}, tts: "${r.tts}" },`);
+          } else {
+            lines.push(`${indent}    { tts: "${r.tts}" },`);
+          }
+        }
+        lines.push(`${indent}  ],`);
+        lines.push(`${indent}},`);
+        return lines;
+      }
+    }
+
+    // dev=1 时初始化配置面板
+    if (IS_DEV) {
+      new SkillConfigPanel();
+    }
+
 
