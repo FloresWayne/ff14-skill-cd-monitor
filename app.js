@@ -458,19 +458,29 @@ class SkillCdMonitor {
         cb.addEventListener('change', () => { skill._enabled = cb.checked; });
         row.appendChild(cb);
 
-        // ID
-        const idSpan = document.createElement('span');
-        idSpan.className = 'skill-id';
-        idSpan.textContent = skill.ids.join(', ');
-        idSpan.title = '技能ID (只读)';
-        row.appendChild(idSpan);
+        // ID (可编辑)
+        const idWrap = document.createElement('div');
+        idWrap.className = 'skill-id';
+        const idInput = document.createElement('input');
+        idInput.type = 'text';
+        idInput.value = skill.ids.join(', ');
+        idInput.title = '技能ID，多个用逗号分隔';
+        idInput.addEventListener('change', () => {
+          skill.ids = idInput.value.split(',').map(s => s.trim()).filter(Boolean);
+        });
+        idWrap.appendChild(idInput);
+        row.appendChild(idWrap);
 
-        // 名称
-        const nameSpan = document.createElement('span');
-        nameSpan.className = 'skill-name';
-        nameSpan.textContent = skill.name;
-        nameSpan.title = '技能名称 (只读)';
-        row.appendChild(nameSpan);
+        // 名称 (可编辑)
+        const nameWrap = document.createElement('div');
+        nameWrap.className = 'skill-name';
+        const nameInput = document.createElement('input');
+        nameInput.type = 'text';
+        nameInput.value = skill.name;
+        nameInput.title = '技能名称';
+        nameInput.addEventListener('change', () => { skill.name = nameInput.value; });
+        nameWrap.appendChild(nameInput);
+        row.appendChild(nameWrap);
 
         // 类型
         const typeSpan = document.createElement('span');
