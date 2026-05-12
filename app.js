@@ -344,7 +344,7 @@ class SkillCdMonitor {
 
     const JOB_NAMES = {
       drk: '暗黑骑士', gnb: '绝枪战士', pld: '骑士', war: '战士',
-      drg: '龙骑士', nin: '忍者', mnk: '武僧', sam: '武士', rpr: '钐镰客',
+      drg: '龙骑士', nin: '忍者', mnk: '武僧', sam: '武士', rpr: '钐镰客', vpr: '蝰蛇',
       dnc: '舞者', brd: '吟游诗人', mch: '机工士',
       blm: '黑魔法师', rdm: '赤魔法师', smn: '召唤师',
       whm: '白魔法师', sge: '贤者', sch: '学者', ast: '占星术士',
@@ -393,6 +393,24 @@ class SkillCdMonitor {
       }
 
       _renderRole(roleKey, roleData, parentEl) {
+        const content = document.createElement('div');
+        content.className = 'config-role-content';
+
+        if (roleKey === 'common') {
+          if (roleData.length === 0) return;
+          for (let i = 0; i < roleData.length; i++) {
+            this._renderSkill(roleData[i], content);
+          }
+        } else {
+          let hasAnyJob = false;
+          for (const [jobKey, jobSkills] of Object.entries(roleData)) {
+            if (jobSkills.length === 0) continue;
+            hasAnyJob = true;
+            this._renderJob(jobKey, jobSkills, content);
+          }
+          if (!hasAnyJob) return;
+        }
+
         const roleDiv = document.createElement('div');
         roleDiv.className = 'config-role';
         roleDiv.dataset.role = roleKey;
@@ -403,24 +421,13 @@ class SkillCdMonitor {
         title.addEventListener('click', () => roleDiv.classList.toggle('expanded'));
         roleDiv.appendChild(title);
 
-        const content = document.createElement('div');
-        content.className = 'config-role-content';
-
-        if (roleKey === 'common') {
-          for (let i = 0; i < roleData.length; i++) {
-            this._renderSkill(roleData[i], content);
-          }
-        } else {
-          for (const [jobKey, jobSkills] of Object.entries(roleData)) {
-            this._renderJob(jobKey, jobSkills, content);
-          }
-        }
-
         roleDiv.appendChild(content);
         parentEl.appendChild(roleDiv);
       }
 
       _renderJob(jobKey, jobSkills, parentEl) {
+        if (jobSkills.length === 0) return;
+
         const jobDiv = document.createElement('div');
         jobDiv.className = 'config-job';
         jobDiv.dataset.job = jobKey;
