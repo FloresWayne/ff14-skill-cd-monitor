@@ -81,6 +81,7 @@ class SkillCdMonitor {
         let skillCount = 0;
 
         function registerSkill(skill) {
+          if (skill.enabled === false) return;
           for (const id of skill.ids) {
             const upperId = id.toUpperCase();
             if (this.skillMap.has(upperId)) {
@@ -369,7 +370,7 @@ class SkillCdMonitor {
         cloned.common = SKILL_DATABASE.common.map((s, i) => ({
           ...JSON.parse(JSON.stringify(s)),
           _path: `common.${i}`,
-          _enabled: true,
+          _enabled: s.enabled !== false,
         }));
         for (const role of ['tank', 'melee', 'ranged', 'caster', 'healer']) {
           cloned[role] = {};
@@ -377,7 +378,7 @@ class SkillCdMonitor {
             cloned[role][job] = skills.map((s, i) => ({
               ...JSON.parse(JSON.stringify(s)),
               _path: `${role}.${job}.${i}`,
-              _enabled: true,
+              _enabled: s.enabled !== false,
             }));
           }
         }
@@ -587,29 +588,23 @@ class SkillCdMonitor {
         lines.push('const SKILL_DATABASE = {');
 
         // common
-        const commonSkills = this.data.common.filter(s => s._enabled);
-        if (commonSkills.length > 0) {
-          lines.push('  // 共通技能');
-          lines.push('  common: [');
-          for (const s of commonSkills) {
-            lines.push(...this._skillToLines(s, '    '));
-          }
-          lines.push('  ],');
+        lines.push('  // 共通技能');
+        lines.push('  common: [');
+        for (const s of this.data.common) {
+          lines.push(...this._skillToLines(s, '    '));
         }
+        lines.push('  ],');
 
         // roles
         for (const role of ['tank', 'melee', 'ranged', 'caster', 'healer']) {
           const roleData = this.data[role];
           const jobs = Object.keys(roleData);
-          const hasEnabled = jobs.some(job => roleData[job].some(s => s._enabled));
-          if (!hasEnabled) continue;
 
           lines.push('');
-          lines.push(`  // ${ROLE_NAMES[role].replace(/./g, '')} ${role}`);
+          lines.push(`  // ${role}`);
           lines.push(`  ${role}: {`);
           for (const job of jobs) {
-            const jobSkills = roleData[job].filter(s => s._enabled);
-            if (jobSkills.length === 0) continue;
+            const jobSkills = roleData[job];
             lines.push(`    // ${JOB_NAMES[job] || job}`);
             lines.push(`    ${job}: [`);
             for (const s of jobSkills) {
@@ -630,6 +625,7 @@ class SkillCdMonitor {
         lines.push(`${indent}  ids: [${skill.ids.map(id => `"${id}"`).join(', ')}],`);
         lines.push(`${indent}  name: "${skill.name}",`);
         lines.push(`${indent}  type: "${skill.type}",`);
+        lines.push(`${indent}  enabled: ${skill._enabled !== false},`);
         if (typeof skill.duration === 'number') {
           lines.push(`${indent}  duration: ${skill.duration},`);
         }

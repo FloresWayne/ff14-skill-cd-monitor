@@ -33,6 +33,7 @@ const SKILL_DATABASE = {
   // --------------------------------------------------------------
   common: [
     {
+      enabled: true,
       ids: ["1D8A"],
       name: "醒梦",
       type: "cd",
@@ -42,6 +43,7 @@ const SKILL_DATABASE = {
       ],
     },
     {
+      enabled: true,
       ids: ["1D89"],
       name: "即刻咏唱",
       type: "cd",
@@ -59,6 +61,7 @@ const SKILL_DATABASE = {
     // 暗黑骑士
     drk: [
       {
+        enabled: true,
         ids: ["E29"],
         name: "嗜血",
         type: "dot",
@@ -68,6 +71,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["E37"],
         name: "腐秽大地",
         type: "dot",
@@ -77,6 +81,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["4058"],
         name: "掠影示现",
         type: "dot",
@@ -89,6 +94,7 @@ const SKILL_DATABASE = {
     // 绝枪战士
     gnb: [
       {
+        enabled: true,
         ids: ["3F0A"],
         name: "无情",
         type: "cd",
@@ -98,6 +104,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["3F24"],
         name: "血壤",
         type: "cd",
@@ -107,6 +114,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["3F12"],
         name: "子弹连",
         type: "cd",
@@ -116,6 +124,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["3F21", "649E"],
         name: "石之心|刚玉之心",
         type: "cd",
@@ -128,6 +137,7 @@ const SKILL_DATABASE = {
     // 骑士
     pld: [
       {
+        enabled: true,
         ids: ["14"],
         name: "战逃反应",
         type: "cd",
@@ -137,6 +147,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1CD7"],
         name: "安魂祈祷",
         type: "cd",
@@ -146,6 +157,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1D", "6493"],
         name: "偿赎剑",
         type: "cd",
@@ -155,6 +167,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["17"],
         name: "厄运流转",
         type: "cd",
@@ -164,6 +177,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["DD2"],
         name: "沥血剑",
         type: "cd",
@@ -176,6 +190,7 @@ const SKILL_DATABASE = {
     // 战士
     war: [
       {
+        enabled: true,
         ids: ["1CDB", "6498"],
         name: "动乱|群山隆起",
         type: "cd",
@@ -185,6 +200,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["2D", "404E"],
         name: "战场风暴",
         type: "dot",
@@ -194,6 +210,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["DDF", "4050", "6497"],
         name: "原初的勇猛|原初的直觉|原初的血气",
         type: "cd",
@@ -203,6 +220,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1CDD"],
         name: "原初的解放",
         type: "cd",
@@ -212,6 +230,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["DE0"],
         name: "泰然自若",
         type: "cd",
@@ -230,6 +249,7 @@ const SKILL_DATABASE = {
     // 龙骑士
     drg: [
       {
+        enabled: true,
         ids: ["405E"],
         name: "高跳",
         type: "cd",
@@ -239,6 +259,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["60"],
         name: "龙炎冲",
         type: "cd",
@@ -248,6 +269,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["55"],
         name: "猛枪",
         type: "cd",
@@ -257,6 +279,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["DE5"],
         name: "战斗连祷",
         type: "cd",
@@ -266,6 +289,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["58", "64AC"],
         name: "樱花怒放",
         type: "dot",
@@ -278,6 +302,7 @@ const SKILL_DATABASE = {
     // 忍者
     nin: [
       {
+        enabled: true,
         ids: ["406D"],
         name: "分身之术",
         type: "cd",
@@ -287,6 +312,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["8D2"],
         name: "攻其不备",
         type: "cd",
@@ -296,6 +322,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1CEB"],
         name: "天地人",
         type: "cd",
@@ -305,6 +332,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["8C8"],
         name: "夺取",
         type: "cd",
@@ -317,6 +345,7 @@ const SKILL_DATABASE = {
     // 武僧
     mnk: [
       {
+        enabled: true,
         ids: ["1CE3"],
         name: "红莲极意",
         type: "cd",
@@ -326,6 +355,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1CE4"],
         name: "义结金兰 ",
         type: "cd",
@@ -335,6 +365,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["64A6"],
         name: "疾风极意",
         type: "cd",
@@ -344,6 +375,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["42"],
         name: "Dot",
         type: "dot",
@@ -353,6 +385,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1CE2"],
         name: "金刚极意",
         type: "cd",
@@ -365,6 +398,7 @@ const SKILL_DATABASE = {
     // 武士
     sam: [
       {
+        enabled: true,
         ids: ["1D4B"],
         name: "明镜止水",
         type: "cd",
@@ -374,6 +408,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1D48", "4061"],
         name: "必杀剑·闪影|必杀剑·红莲",
         type: "cd",
@@ -383,6 +418,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["4062"],
         name: "意气冲天",
         type: "cd",
@@ -392,6 +428,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["4064", "4065", "4066", "64B6"],
         name: "燕回返",
         type: "cd",
@@ -401,6 +438,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1D41"],
         name: "彼岸花",
         type: "cd",
@@ -413,6 +451,7 @@ const SKILL_DATABASE = {
     // 钐镰客
     rpr: [
       {
+        enabled: true,
         ids: ["5F55"],
         name: "神秘环",
         type: "cd",
@@ -422,6 +461,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["5F49"],
         name: "暴食",
         type: "cd",
@@ -431,6 +471,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["5F3A"],
         name: "死亡之影",
         type: "dot",
@@ -449,6 +490,7 @@ const SKILL_DATABASE = {
     // 舞者
     dnc: [
       {
+        enabled: true,
         ids: ["3E7D"],
         name: "标准舞步",
         type: "cd",
@@ -458,6 +500,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["3E7E"],
         name: "技巧舞步",
         type: "cd",
@@ -467,6 +510,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["3E8D"],
         name: "百花争艳",
         type: "cd",
@@ -479,6 +523,7 @@ const SKILL_DATABASE = {
     // 吟游诗人
     brd: [
       {
+        enabled: true,
         ids: ["DEA"],
         name: "侧风诱导箭",
         type: "cd",
@@ -488,6 +533,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["76"],
         name: "战斗之声",
         type: "cd",
@@ -497,6 +543,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["6B"],
         name: "纷乱箭",
         type: "cd",
@@ -506,6 +553,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["65"],
         name: "猛者强击",
         type: "cd",
@@ -515,6 +563,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["DE6"],
         name: "九天连箭",
         type: "cd",
@@ -524,6 +573,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["DE7"],
         name: "放浪神的小步舞曲",
         type: "dot",
@@ -533,6 +583,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["64", "71", "1CEE", "1CEF", "DE8"],
         name: "Dot",
         type: "dot",
@@ -542,6 +593,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["72"],
         name: "贤者的叙事谣",
         type: "dot",
@@ -551,6 +603,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["74"],
         name: "军神的叙事谣",
         type: "dot",
@@ -560,6 +613,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1CF0"],
         name: "大地神",
         type: "cd",
@@ -572,6 +626,7 @@ const SKILL_DATABASE = {
     // 机工士
     mch: [
       {
+        enabled: true,
         ids: ["1CF6"],
         name: "枪管加热",
         type: "cd",
@@ -581,6 +636,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["4074"],
         name: "空气锚",
         type: "cd",
@@ -590,6 +646,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["B3C"],
         name: "整备",
         type: "cd",
@@ -599,6 +656,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["4072", "4073"],
         name: "钻头|毒菌冲击",
         type: "cd",
@@ -608,6 +666,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["64BC"],
         name: "回转飞锯",
         type: "cd",
@@ -626,6 +685,7 @@ const SKILL_DATABASE = {
     // 黑魔法师
     blm: [
       {
+        enabled: true,
         ids: ["DF6"],
         name: "激情咏唱",
         type: "dot",
@@ -635,6 +695,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1CFD"],
         name: "三连咏唱",
         type: "cd",
@@ -644,6 +705,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["DF5"],
         name: "黑魔纹",
         type: "cd",
@@ -653,6 +715,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["64C4"],
         name: "详述",
         type: "cd",
@@ -662,6 +725,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["9E"],
         name: "魔泉",
         type: "cd",
@@ -674,6 +738,7 @@ const SKILL_DATABASE = {
     // 赤魔法师
     rdm: [
       {
+        enabled: true,
         ids: ["1D52"],
         name: "短兵相接",
         type: "dot",
@@ -683,6 +748,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1D60"],
         name: "鼓励",
         type: "cd",
@@ -692,6 +758,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1D5F"],
         name: "六分反击",
         type: "cd",
@@ -701,6 +768,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1D5D"],
         name: "飞刺",
         type: "cd",
@@ -710,6 +778,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1D5B", "408F"],
         name: "移转|交剑",
         type: "dot",
@@ -719,6 +788,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1D61"],
         name: "倍增",
         type: "cd",
@@ -728,6 +798,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1D5E"],
         name: "促进",
         type: "dot",
@@ -740,6 +811,7 @@ const SKILL_DATABASE = {
     // 召唤师
     smn: [
       {
+        enabled: true,
         ids: ["407C", "407E"],
         name: "能量吸收|能量抽取",
         type: "cd",
@@ -749,6 +821,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1D03", "64E7"],
         name: "龙神附体|不死鸟附体",
         type: "cd",
@@ -758,6 +831,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["64C7"],
         name: "守护之光",
         type: "cd",
@@ -776,6 +850,7 @@ const SKILL_DATABASE = {
     // 通用
     common: [
       {
+        enabled: true,
         ids: ["4094", "409C", "40AA", "5EFA", "79", "84", "48C8", "45C9", "E0F", "E18", "5EE5", "5EF4"],
         name: "奶妈Dot",
         type: "dot",
@@ -788,6 +863,7 @@ const SKILL_DATABASE = {
     // 白魔法师
     whm: [
       {
+        enabled: true,
         ids: ["DF2"],
         name: "神名",
         type: "cd",
@@ -797,6 +873,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["DF3"],
         name: "法令",
         type: "cd",
@@ -806,6 +883,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["6506"],
         name: "礼仪之铃",
         type: "cd",
@@ -815,6 +893,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1D08"],
         name: "神祝祷",
         type: "cd",
@@ -824,6 +903,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["6505"],
         name: "水流幕",
         type: "cd",
@@ -833,6 +913,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["88"],
         name: "神速咏唱",
         type: "cd",
@@ -845,6 +926,7 @@ const SKILL_DATABASE = {
     // 贤者
     sge: [
       {
+        enabled: true,
         ids: ["5EF9"],
         name: "发炎",
         type: "cd",
@@ -854,6 +936,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["5EE6"],
         name: "拯救",
         type: "cd",
@@ -863,6 +946,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["5EEE"],
         name: "自生",
         type: "cd",
@@ -872,6 +956,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["5EED"],
         name: "消化",
         type: "cd",
@@ -881,6 +966,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["5EEC"],
         name: "活化",
         type: "cd",
@@ -890,6 +976,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["5EF1"],
         name: "输血",
         type: "cd",
@@ -899,6 +986,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["5EF7"],
         name: "泛输血",
         type: "cd",
@@ -908,6 +996,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["5EFE"],
         name: "魂灵风息",
         type: "cd",
@@ -917,6 +1006,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["5EF6"],
         name: "整体论",
         type: "cd",
@@ -926,6 +1016,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["5EF5"],
         name: "根素",
         type: "cd",
@@ -938,6 +1029,7 @@ const SKILL_DATABASE = {
     // 学者
     sch: [
       {
+        enabled: true,
         ids: ["1D0A"],
         name: "深谋远虑之策",
         type: "cd",
@@ -947,6 +1039,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1D0C"],
         name: "连环计",
         type: "cd",
@@ -956,6 +1049,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["A6"],
         name: "以太超流",
         type: "cd",
@@ -965,6 +1059,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["650B"],
         name: "生命回生法",
         type: "cd",
@@ -977,6 +1072,7 @@ const SKILL_DATABASE = {
     // 占星术士
     ast: [
       {
+        enabled: true,
         ids: ["40A8"],
         name: "占卜",
         type: "cd",
@@ -986,6 +1082,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1D0F"],
         name: "地星",
         type: "cd",
@@ -995,6 +1092,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["6511"],
         name: "擢升",
         type: "cd",
@@ -1004,6 +1102,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["E1E"],
         name: "先天",
         type: "cd",
@@ -1013,6 +1112,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["1D13"],
         name: "小奥秘卡",
         type: "cd",
@@ -1022,6 +1122,7 @@ const SKILL_DATABASE = {
         ],
       },
       {
+        enabled: true,
         ids: ["E16"],
         name: "光速",
         type: "cd",
