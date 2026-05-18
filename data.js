@@ -107,7 +107,7 @@ const SKILL_DATABASE = {
         enabled: true,
         ids: ["1D41"],
         name: "彼岸花",
-        type: "cd",
+        type: "dot",
         duration: 60,
         reminders: [
           { tts: "彼岸花" },
@@ -175,7 +175,7 @@ const SKILL_DATABASE = {
     // 召唤师
     smn: [
 
-    ],
+    ]，
   },
 
   // --------------------------------------------------------------
